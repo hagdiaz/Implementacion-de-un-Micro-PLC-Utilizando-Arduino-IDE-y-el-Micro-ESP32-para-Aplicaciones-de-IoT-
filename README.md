@@ -1,27 +1,22 @@
-Proyecto Final de Ingeniería Automática
+# Implementación de un Micro PLC Utilizando Arduino IDE y el Microcontrolador ESP32 para Aplicaciones de IoT
 
-Tema: Implementación de un Micro PLC Utilizando Arduino IDE y el Microcontrolador ESP32 para Aplicaciones de IoT.
+## Introducción
+En el siglo XXI, el desarrollo de proyectos de ingeniería en automática es crucial. Este proyecto tiene como objetivo la implementación de un micro PLC utilizando Arduino IDE y el microcontrolador ESP32 para aplicaciones de IoT. Este micro PLC se instalará en habitaciones hoteleras o incluso en casas de cultivo, donde se requiere la automatización de máquinas de riego de pivote central, entre otras aplicaciones.
 
-Introducción:
-En el siglo XXI, el desarrollo de proyectos de ingeniería en automática es crucial, ya que todos los centros y lugares donde se emplea la automática utilizan PLC (Controladores Lógico Programables). Estos dispositivos, producidos por firmas reconocidas a nivel internacional como Schneider Electric y Siemens, son de una calidad excepcional, pero tienen precios elevados. Sin embargo, las aplicaciones que queremos desarrollar se enmarcan en ambientes donde no se necesitan dispositivos tan robustos y costosos.
-Este proyecto tiene como objetivo la implementación de un micro PLC utilizando Arduino IDE y el microcontrolador ESP32. Este micro PLC se instalará en habitaciones hoteleras o incluso en casas de cultivo, donde se requiere la automatización de máquinas de riego de pivote central, entre otras aplicaciones. La arquitectura propuesta es más sencilla y económica, resolviendo de igual forma los problemas diarios.
+## Descripción del Proyecto
+### Empleo de la Placa LilyGo T3 S3
+En el contexto del control de un entorno IoT para una habitación hotelera, se han utilizado sensores de temperatura, humedad, movimiento y apertura de puertas y ventanas para monitorear y controlar el ambiente de la habitación.
 
-Desarrollo:
-Descripción del Empleo de la Placa para Automatizar una Habitación de Hotel
-En el contexto del control de un entorno IoT para una habitación hotelera, se han discutido varias preguntas clave relacionadas con la implementación de sensores y el uso de la placa de desarrollo LilyGo T3 S3. A continuación, se presenta un resumen:
-Sensores
-Es sugerente la utilización de sensores de temperatura, humedad, movimiento, y apertura de puertas y ventanas. Estos dispositivos son fundamentales para monitorear y controlar el ambiente de la habitación, asegurando el confort del huésped y optimizando el uso de energía.
-Control de Relés
-Mediante la implementación de relés se pueden manejar dispositivos como el aire acondicionado y las luces. Para hacer un proyecto competente, el sistema debe ser capaz de:
-1.	Mantener una temperatura óptima cuando no hay presencia en la habitación.
-2.	Apagar el aire acondicionado si se detecta que las ventanas o puertas están abiertas durante un tiempo prolongado.
-3.	Encender las luces automáticamente al detectar presencia en la habitación.
-Código de Implementación
-A continuación, se presenta un ejemplo de código en C++ que utiliza la placa LilyGo T3 S3 para integrar los sensores mencionados y controlar los relés según las condiciones detectadas. Este código permite leer datos de los sensores y tomar decisiones automatizadas sobre el funcionamiento del aire acondicionado y las luces.
-Mejoras Futuras
-Se sugiere que el sistema podría expandirse para incluir más funcionalidades, como la integración con sistemas de gestión hotelera o la capacidad de enviar notificaciones al personal del hotel sobre el estado de las habitaciones.
+### Control de Relés
+Mediante la implementación de relés, se manejan dispositivos como el aire acondicionado y las luces. El sistema es capaz de:
+1. Mantener una temperatura óptima cuando no hay presencia en la habitación.
+2. Apagar el aire acondicionado si se detecta que las ventanas o puertas están abiertas durante un tiempo prolongado.
+3. Encender las luces automáticamente al detectar presencia en la habitación.
 
-Ejemplo de código:
+## Código de Implementación
+A continuación se presenta un ejemplo de código en C++ que utiliza la placa LilyGo T3 S3 para integrar los sensores mencionados y controlar los relés según las condiciones detectadas.
+
+```cpp
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <DHT.h>
@@ -147,7 +142,7 @@ void loop() {
     delay(5000); // Esperar 5 segundos entre lecturas
 }
 
-Descripción de la PCB y componentes electrónicos, sus principales datos técnicos:
+###Descripción de la PCB y componentes electrónicos, sus principales datos técnicos:
  
 La placa LilyGo T3 S3 contiene el microcontrolador ESP32, que actúa como el cerebro del micro PLC. En la imagen se puede apreciar el pinout del dispositivo para su posterior empleo.
  
@@ -160,13 +155,13 @@ La Figura 3.2 representa el canal de salida simulado en Proteus, y se replicaron
 La fuente utilizada en este diseño es una de 24 VDC proveniente del exterior, que alimenta todo el bloque de salida, incluyendo los relés de potencia y el regulador de voltaje MEZD71202A-G. Este regulador se utiliza para estabilizar el voltaje de entrada de 24VDC, aspecto crucial para el funcionamiento de los optoacopladores U1 hasta U7 y la alimentación de la placa IoT T3 S3. El regulador acepta un rango de voltaje desde 4.5VDC hasta 24VDC y suministra una salida fija de 5VDC, con una capacidad máxima de corriente de hasta 2A. Se monta en la PCB a través de orificios (TH) y se conecta mediante 3 pines, como se ilustra en la Figura 3.3. En la placa, el regulador está acompañado de tres capacitores que contribuyen al completo filtrado de la entrada y salida de corriente del regulador, así se suprime la gran mayoría de los ruidos eléctricos. Con el fin de garantizar el buen funcionamiento de la placa IoT T3 S3, alimentada por este regulador, se añadió un diodo en la entrada para asegurar que la polaridad siempre sea correcta.
  
 
-Diseño en KiCAD:
+###Diseño en KiCAD:
 El esquemático presentado fue diseñado en la zona de trabajo de KiCAD y sirve como base para la creación del PCB. En él, se pueden identificar todos los bloques de entrada y salida previamente especificados, conectados a sus respectivos pines como se describe en la Tabla 2.1 y Tabla 2.2. Además de estos bloques, se incluyen bloques adicionales. El primer bloque, etiquetado como "LilyGo TTGO Lora T3 S3 ESP32 Pin Conector", representa las salidas y entradas de los pines de conexión de la T3 S3 en la placa. El siguiente bloque, llamado Power input, se refiere a la entrada de 24VDC con su correspondiente fusible reiniciable de 24VDC y 2A, diseñado para proteger el circuito. También se presenta el bloque Voltaje Regulator, explicado anteriormente, incluyendo el conector J15 para alimentar la placa IoT desde ese puerto. También aparece un bloque con los protocolos de comunicación I2C y UART, para instalar diferentes sensores al PCB.
 
-Conclusiones:
+###Conclusiones:
 Al terminar con la realización de este trabajo final de Ingeniería Automática, se ha podido concluir la importancia del estudio de otras posibilidades de creación y diseño de PCB con la funcionalidad de micro PLC para ser empleados en una amplia gama de servicios donde se necesite la supervisión y control de tareas y procesos, garantizando no solo una calidad excelente sino también un precio mucho más módico en comparación a los PLC que ofrecen firmas reconocidas en el mercado internacional. Se han afianzado más las habilidades en el uso de la herramienta KiCAD para el diseño de placas electrónicas con prestaciones específicas para cada proyecto que se proponga realizar, y se ha aprendido más sobre el entorno de desarrollo integrado de Arduino y sobre la programación específicamente de los microcontroladores ESP32.
 
-Recomendaciones
+###Recomendaciones
 1.	Expansión de Funcionalidades: Se recomienda expandir el sistema para incluir más funcionalidades, como la integración con sistemas de gestión hotelera. Esto permitiría una administración centralizada y eficiente de las habitaciones del hotel.
 2.	Notificaciones y Alertas: Implementar la capacidad de enviar notificaciones y alertas al personal del hotel sobre el estado de las habitaciones. Esto podría incluir alertas sobre ventanas o puertas abiertas, fallos en el sistema de aire acondicionado, o cualquier otra condición que requiera atención inmediata.
 3.	Pruebas y Validación: Realizar pruebas exhaustivas y validación del sistema en diferentes entornos para asegurar su robustez y fiabilidad. Esto incluye pruebas de estrés, pruebas de compatibilidad y pruebas de seguridad.
